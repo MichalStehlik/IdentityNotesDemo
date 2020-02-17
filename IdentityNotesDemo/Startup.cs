@@ -29,8 +29,13 @@ namespace IdentityNotesDemo
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Default"))
             );
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-                options.SignIn.RequireConfirmedAccount = false
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => 
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequiredLength = 6;
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
+            } 
             )
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
@@ -56,6 +61,7 @@ namespace IdentityNotesDemo
 
             app.UseRouting();
 
+            app.UseAuthentication(); //
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
