@@ -1,0 +1,30 @@
+﻿@page
+@model IdentityNotesDemo.SignInModel
+@{
+    ViewData["Title"] = "SignIn";
+}
+
+<h1>SignIn</h1>
+@if (!String.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="alert alert-success">@Model.SuccessMessage</div>
+}
+@if (!String.IsNullOrEmpty(Model.FailureMessage))
+{
+    <div class="alert alert-danger">@Model.FailureMessage</div>
+}
+<form asp-route-returnUrl="@Model.Input.ReturnUrl">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Input.UserName"></label>
+        <input asp-for="Input.UserName" class="form-control" />
+        <span asp-validation-for="Input.UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Input.Password"></label>
+        <input asp-for="Input.Password" class="form-control" />
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign In</button>
+</form>
+

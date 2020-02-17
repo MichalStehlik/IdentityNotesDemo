@@ -30,7 +30,7 @@ namespace IdentityNotesDemo
                 options.UseSqlServer(Configuration.GetConnectionString("Default"))
             );
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-                options.SignIn.RequireConfirmedAccount = true
+                options.SignIn.RequireConfirmedAccount = false
             )
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();

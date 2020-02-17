@@ -17,13 +17,13 @@ namespace IdentityNotesDemo.Models
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "ADMIN", Name = "Administrátor" });
-            builder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "USER", Name = "Uživatel" });
+            builder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "ADMIN", Name = "Administrátor", NormalizedName = "ADMINISTRÁTOR" });
+            builder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "USER", Name = "Uživatel", NormalizedName = "UŽIVATEL" });
             var hasher = new PasswordHasher<ApplicationUser>();
             builder.Entity<ApplicationUser>().HasData(new ApplicationUser
             {
                 Id = "ADMINUSER",
-                FirstName = "Main",
+                FirstName = "Hlavní",
                 LastName = "Administrator",
                 UserName = "admin",
                 NormalizedUserName = "ADMIN",
