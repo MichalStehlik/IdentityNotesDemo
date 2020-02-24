@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityNotesDemo.Models;
+using IdentityNotesDemo.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,6 +40,7 @@ namespace IdentityNotesDemo
             )
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+            services.AddScoped<EmailSender>();
             services.AddRazorPages();
         }
 

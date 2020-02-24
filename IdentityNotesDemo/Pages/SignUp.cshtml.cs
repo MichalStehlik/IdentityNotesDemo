@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityNotesDemo.Models;
+using IdentityNotesDemo.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,13 @@ namespace IdentityNotesDemo
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signinManager;
+        private readonly EmailSender _emailSender;
 
-        public SignUpModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signinManager)
+        public SignUpModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signinManager, EmailSender emailsender)
         {
             _userManager = userManager;
             _signinManager = signinManager;
+            _emailSender = emailsender;
         }
         [TempData]
         public string SuccessMessage { get; set; }
@@ -46,6 +49,7 @@ namespace IdentityNotesDemo
                 {
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     SuccessMessage = "Registrace se podařila. Kód je " + code;
+                    await _emailSender.SendEmailAsync(Input.Email,"Confirm your Mail", code);
                     return RedirectToPage("AccountConfirmation", new { email = Input.Email});
                 }
                 foreach(var err in result.Errors)

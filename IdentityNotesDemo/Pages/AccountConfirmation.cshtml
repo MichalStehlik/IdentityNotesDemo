@@ -1,0 +1,24 @@
+﻿@page
+@model IdentityNotesDemo.Pages.AccountConfirmationModel
+@if (!String.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="alert alert-success">@Model.SuccessMessage</div>
+}
+@if (!String.IsNullOrEmpty(Model.FailureMessage))
+{
+    <div class="alert alert-danger">@Model.FailureMessage</div>
+}
+<form asp-route-returnUrl="@Model.ReturnUrl">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Code"></label>
+        <input asp-for="Code" class="form-control" />
+        <span asp-validation-for="Code" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Confirm Account</button>
+</form>
