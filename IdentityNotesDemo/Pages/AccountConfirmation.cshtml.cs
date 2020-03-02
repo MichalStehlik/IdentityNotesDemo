@@ -24,8 +24,6 @@ namespace IdentityNotesDemo.Pages
         public string SuccessMessage { get; set; }
         [TempData]
         public string FailureMessage { get; set; }
-        [BindProperty]
-        public RegisterInputModel Input { get; set; }
         public string ReturnUrl { get; set; }
 
         [BindProperty]
@@ -59,7 +57,7 @@ namespace IdentityNotesDemo.Pages
                 await _signinManager.SignInAsync(user, false);
                 if (returnUrl != null)
                 {
-                    return LocalRedirect(returnUrl);
+                    return Redirect(returnUrl);
                 }
                 else
                 {

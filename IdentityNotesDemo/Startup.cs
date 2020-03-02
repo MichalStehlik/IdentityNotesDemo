@@ -41,6 +41,25 @@ namespace IdentityNotesDemo
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
             services.AddScoped<EmailSender>();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/SignIn";
+                options.LogoutPath = "/SignOut";
+                options.AccessDeniedPath = "/AccessDenied";
+            }               
+            );
+
+            services.AddAuthorization(options => {
+                options.AddPolicy("Adults", 
+                    policy =>
+                    {
+                        policy.RequireClaim("Age");
+                        policy.RequireRole("Administrátor");
+                    }
+                    );
+            });
+
             services.AddRazorPages();
         }
 
